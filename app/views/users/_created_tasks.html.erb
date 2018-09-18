@@ -1,0 +1,15 @@
+<% unless @created_tasks.empty? %>
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">
+		<%= pluralize @created_tasks.size, 'Task' %> Created</span>
+<div class="well">
+	<ul>
+		<% @created_tasks.each do |task| %>
+			<li><%= link_to task.name, task_path(task) %>&nbsp;&nbsp;(<%= task.project.name %> - <%= task.created_at.strftime("%m/%d") %>)</li>
+		<% end %>
+	</ul>
+</div>
+</div></div>
+<% end %>
+<p>&nbsp;</p>

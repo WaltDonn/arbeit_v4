@@ -1,0 +1,50 @@
+
+<div class="card" id="task_details">
+	<div class="card-content">
+		<span class="card-title">
+		Task Details</span>
+
+<p>
+  <b>Project</b>: <%= link_to @task.project.name, project_path(@task.project) %>
+</p>
+
+<p>
+  <b>Due on</b>: <%= @task.due_on.strftime("%B %d, %Y") %>
+</p>
+
+<p>
+  <b>Priority</b>: <%= raw(priority_label(@task.priority)) %>
+  <!-- NOTE: I generally don't like using the raw method for many reasons but
+       doing it here is okay (task.priority limited by model to 1..4) and
+       I wanted to demo its use somehow so you know it and have seen it.
+       It has value (otherwise why bother creating it?), but should be
+       limited to special cases like this... -->
+</p>
+
+<% unless @task.creator.nil? %>
+	<p>
+	  <b>Created by</b>: <%= link_to @task.creator.proper_name, user_path(@task.creator) %>
+	</p>
+<% end %>
+
+<p>
+  <b>Completed</b>: <%= @task.completed ? "Yes" : "No" %>&nbsp;&nbsp;&nbsp;
+	<% if @task.completed %>
+		<%= link_to(image_tag("icons/check_green.gif"), toggle_path(@task, status: 'incomplete'), remote: true, method: 'patch') %>
+	<% else %>
+		<%= link_to(image_tag("icons/check_black.gif"), toggle_path(@task, status: 'complete'), remote: true, method: 'patch') %>
+	<% end %>
+</p>
+
+<% unless @task.completer.nil?  %>
+	<p>
+	  <b>Completed by:</b> <%= link_to @task.completer.proper_name, user_path(@task.completer) %>
+	</p>
+<% end %>
+
+<p>
+	<b> Specsheet: </b>
+	<%= !@task.specsheet_name.blank? ? link_to(@task.specsheet_name, download_specsheet_path) : "N/A" %>
+</p>
+
+</div></div>

@@ -1,0 +1,15 @@
+<% unless @past_projects.empty? %>
+
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">
+		Past Projects</span>
+	<ul>
+		<% @past_projects.each do |project| %>
+			<% if can? :read, project %>
+				<li><%= link_to project.name, project_path(project) %>&nbsp;&nbsp;(end: <%= project.end_date.strftime("%b %Y") %>)</li>
+			<% end %>
+		<% end %>
+	</ul>
+</div></div>
+<% end %>

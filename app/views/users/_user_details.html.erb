@@ -1,0 +1,30 @@
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">
+		Account Details</span>
+<p>
+  <b>Email</b>: <%= mail_to @user.email, @user.email, encode: "javascript" %>
+</p>
+
+<p>
+  <b>Role</b>: <%= @user.role.capitalize %>
+</p>
+
+<p>
+  <b>Active</b>: <%= @user.active ? "Yes" : "No" %>
+</p>
+<br/>
+<p><b>Current Assignments:</b>
+  <% if @user_assignments.empty? %>
+    &nbsp;&nbsp;<em>No assignments at this time</em>
+  <% else %>
+    <ul>
+  		<% @user_assignments.each do |assignment| %>
+  			<li><%= link_to assignment.project.name, project_path(assignment.project) %></li>
+  		<% end %>
+  	</ul>
+  <% end %>
+</p>
+
+
+</div></div>

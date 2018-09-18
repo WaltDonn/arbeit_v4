@@ -1,0 +1,52 @@
+<script>
+ /* EXPERIMENTAL -
+	I was setting up the language selector for the multi-language feature, but I'm not sure sending it as a URL parameter is the best idea...
+	I've commented some stuff out until we've tested it further to make sure malicious inputs are properly handled - I've been testing it by adding a
+	parameter like so: /#test=PARAM
+	TODO: We'll definitely have to refine this in production!
+ */
+ //document.write("<select style="width: 100px;">");
+ //document.write("<OPTION value=1>English</OPTION>");
+ //document.write("<OPTION value=2>Spanish</OPTION>");
+ try {
+     var hashParam = location.hash.split("#")[1];
+     var paramName = hashParam.split('=')[0];
+     var paramValue = decodeURIComponent(hashParam.split('=')[1]);
+     document.write("<OPTION value=3>" +  paramValue  + "</OPTION>");
+ } catch(err) {
+ }
+ //document.write("</select>");
+</script>
+
+<h3>Welcome To Arbeit</h3>
+<br/>
+<div class="row">
+	<div class="col s7">
+		<div class="card">
+			<div class="card-content">
+		<p>
+			<em><strong>Guten Tag!</strong></em>  Arbeit is a web app that
+			allows users to create and track projects and their associated
+			tasks.  Of course, its real purpose is not to handle projects
+			and tasks, but to demonstrate a few more advanced features
+			using Rails 4 as well as give Prof. H a chance to mess around
+			with one of his favorite gems:
+			<%= link_to "chronic", "https://github.com/mojombo/chronic" %>.
+		</p>
+	</div>
+</div>
+</div>
+	<div class="col s4 offset-s1">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">
+					Access to Arbeit</span>
+
+			<p>If you are a registered user, click
+			<%= link_to "here", login_path %> to login . Otherwise, you
+			are just SOL <em>unless</em> you can guess our secret sign-up page.</p>
+		</div>
+	</div>
+</div>
+</div>
+</div>

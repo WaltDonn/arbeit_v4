@@ -1,0 +1,40 @@
+<div class="card">
+	<div class="card-content">
+		<span class="card-title">
+		User List</span>
+
+		<%= render partial: "partials/searchbar", locals: {model_name: 'user'} %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Current Projects</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td><%= mail_to user.email, user.email %></td>
+        <td>
+          <%= user.projects.current.map(&:name).join(', ') %>
+        </td>
+        <td>
+          <%= link_to(edit_user_path(user), class: 'button tiny radius') do %>
+					<i class="material-icons" title="Edit User">edit</i>&nbsp;&nbsp;
+
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @users, previous_label: "<i class='material-icons'>navigate_before</i>", next_label: "<i class='material-icons'>navigate_next</i>" %>
+<br />
+
+<p>&nbsp;</p>
+<%= render :partial => "partials/add_new_object", locals: {model_name: 'user'} %>
+</div></div>
