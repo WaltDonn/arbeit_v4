@@ -52,8 +52,9 @@ $(document).ready(function() {
   function submitForm() {
     document.getElementById("search").submit();
   }
-  document.onkeydown = function () {
-    if (window.event.keyCode == '13') {
+  document.onkeydown = function (e) {
+    var evt = e || window.event;
+    if (evt.keyCode == '13') {
         submitForm();
     }
   };
