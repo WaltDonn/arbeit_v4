@@ -36,8 +36,6 @@ Rails.application.routes.draw do
   #Insecure routes for serving static pages
   get 'statics' => 'statics#show', :as => 'statics'
 
-  get "tasks/:id/specsheet", to: 'tasks#download_specsheet', as: :download_specsheet
-
   # Last route in routes.rb that essentially handles routing errors
   get '*a', to: 'errors#routing'
 end

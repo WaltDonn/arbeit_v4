@@ -45,7 +45,6 @@ class TasksController < ApplicationController
     @task.created_by = current_user.id
     if @task.save
       # if saved to database
-      store_specsheet
       respond_to do |format|
         format.html { redirect_to @task, notice: "#{@task.name} has been created." }
         @project_tasks = @task.project.tasks.chronological.by_priority.paginate(page: params[:page]).per_page(10)
@@ -68,7 +67,6 @@ class TasksController < ApplicationController
       @task.completed_by = nil
     end
     if @task.save!
-      store_specsheet
       flash[:notice] = "#{@task.name} is updated."
       redirect_to @task
     else
@@ -103,19 +101,6 @@ class TasksController < ApplicationController
     @results = Task.search(@query)
     @total_hits = @results.size
   end
-
-  def store_specsheet
-    uploader = SpecsheetUploader.new
-    document = params[:task][:specsheet]
-    uploader.store!(document)
-    @task.specsheet_name = params[:task][:specsheet].original_filename.gsub!(/[() ]/, "_")
-    @task.save!
-  end
-
-  def download_specsheet
-    send_file(Rails.root + "public/uploads/#{@task.specsheet_name}", filename: @task.specsheet_name, type: "application/pdf", disposition: "inline")
-  end
-
 
   # ===================================
   # Two new methods to handle changing completed field
@@ -158,6 +143,6 @@ class TasksController < ApplicationController
 
     def task_params
       #convert_due_on
-      params.require(:task).permit(:name, :due_on, :due_string, :project_id, :completed, :completed_by, :created_by, :priority, :specsheet)
+      params.require(:task).permit(:name, :due_on, :due_string, :project_id, :completed, :completed_by, :created_by, :priority)
     end
 end
