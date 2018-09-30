@@ -19,7 +19,7 @@
 
 <p>
   <b>Description</b>:<br>
-  <%= sanitize @project.description %>
+  <%= sanitize(@project.description.html_safe) %>
 </p>
 
 <p>
