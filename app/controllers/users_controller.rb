@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   include FilterHelper
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :check_login, except: [:new, :create]
   # authorize_resource
 
   def index
