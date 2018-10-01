@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(bad_user_params)
       flash[:notice] = "#{@user.proper_name} is updated."
       redirect_to @user
     else
@@ -65,6 +65,10 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
       logger.info(@user.as_json)
+    end
+
+    def bad_user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :role, :active)
     end
 
     def user_params
