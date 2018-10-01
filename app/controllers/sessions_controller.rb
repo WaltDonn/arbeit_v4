@@ -11,10 +11,10 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_url, notice: "Logged in!"
     elsif user
-      flash.now.alert = "Password invalid"
+      flash.now.alert = "Password invalid. Account enumeration: Flag{OUXBBM5VIEJIPOK}"
       render "new" 
     else
-      flash.now.alert = "Email invalid"
+      flash.now.alert = "Email/Password invalid"
       render "new"
     end
   end
