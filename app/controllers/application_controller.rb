@@ -33,14 +33,4 @@ class ApplicationController < ActionController::Base
   def check_login
     redirect_to login_url, alert: "You need to log in to view this page." if current_user.nil?
   end
-
-  def flash_codes
-    if current_user.email == 'admin@example.com'
-      flash[:notice] = "Congratulations! You've hacked the default admin account. Write down the following code so we know you've reached this page: <p align=\"center\"><strong>#{Base64.encode64('hackedadmin')}</strong></p>"
-    elsif current_user.email == 'profh@cmu.edu'
-      flash[:notice] = "Congratulations! You've hacked Prof. Heimann's account. Write down the following code so we know you've reached this page: <p align=\"center\"><strong>#{Base64.encode64('profh')}</strong></p>"
-    elsif current_user.role?(:admin)
-      flash[:notice] = "Congratulations! You've promoted an account to admin. Write down the following code so we know you've reached this page: <p align=\"center\"><strong>#{Base64.encode64('promoted')}</strong></p>"
-    end
-  end
 end
