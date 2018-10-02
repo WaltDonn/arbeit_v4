@@ -1,3 +1,6 @@
+<% if !current_user  %>
+  <p>Uh oh! We thought you wouldnt be able to see this because we didnt provide a link to it...<br>Flag{KJTC4HNFLZP3DD0}</p>
+<% end %>
 <%= render partial: "partials/form_structure", locals: {object: @user,
                                                         type_of_form: "New User",
                                                         fields: "user_fields"} %>
