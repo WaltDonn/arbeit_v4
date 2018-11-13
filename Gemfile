@@ -49,6 +49,7 @@ gem 'materialize-form', '1.0.8'
 # use CarrierWave for file uploads
 gem 'carrierwave', '~> 1.0'
 
+gem 'rack-heartbeat'
 
 # Gems used only in testing
 group :test do
