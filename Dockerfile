@@ -1,18 +1,15 @@
 FROM ruby:2.3.4
 
-ENV port default_port_value
-RUN groupadd -g 999 appuser && \
-    useradd -r -u 999 -g appuser appuser
+EXPOSE 8080
+RUN useradd -m  -r appuser
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-USER appuser
-RUN mkdir /app
-WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+RUN mkdir /home/appuser/app
+WORKDIR /home/appuser/app
+COPY Gemfile /home/appuser/app/Gemfile
+COPY Gemfile.lock /home/appuser/app/Gemfile.lock
 RUN bundle install
-COPY . /app
+ADD . /home/appuser/app/
 RUN rake db:migrate
-
-
-ADD . .
-CMD ["sh", "-c", "puma -p ${port}"]
+RUN chown -R appuser:appuser /home/appuser/
+USER appuser
+CMD puma -p 8080
